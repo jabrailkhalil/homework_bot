@@ -1,0 +1,8 @@
+# Приватные файлы
+private_config.py
+token.json
+client_secret.json
+
+# Временные папки и файлы
+temp/
+__pycache__/
