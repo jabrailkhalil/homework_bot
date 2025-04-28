@@ -13,3 +13,6 @@ __pycache__/
 # Файлы конфигурации среды
 .python-version
 pyenv.cfg
+.DS_Store
+
+.idea/
