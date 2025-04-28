@@ -1,7 +1,7 @@
 ---
-description: Здесь будет архитектура проекта, а также компоненты которые уже есть и которые еще предстоит сделать
+description: 
 globs: 
-alwaysApply: false
+alwaysApply: true
 ---
 # Обзор Проекта
 

@@ -14,8 +14,8 @@ class User(Base):
     __tablename__ = "users"
 
     id = Column(BigInteger, primary_key=True, index=True)  # Telegram User ID
+    username = Column(String, nullable=True, index=True) # Telegram Username (@), может отсутствовать
     full_name = Column(String, index=True)
-    group = Column(String)
     registered_at = Column(DateTime, default=datetime.utcnow) # Добавил дату регистрации
 
 class Subject(Base):
