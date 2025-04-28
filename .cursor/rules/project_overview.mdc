@@ -42,10 +42,25 @@ alwaysApply: true
 Отмечайте пункты по мере их выполнения: `[ ]` -> `[x]`
 
 **Блок 1: Базовая Настройка и Прием ДЗ** `[ ]`
-*   `[x]` Настройка Telegram бота и базовой структуры проекта (директории, `main.py`).
+*   `[x]` Настройка Telegram бота и базовой структуры проекта (директории, [`main.py`](mdc:main.py)). *(Изначально сделано)*
 *   `[x]` Реализация хранения данных (SQLite): модели User, Subject.
-*   `[ ]` Команда `/start` и `/register`: сбор и сохранение данных студента (ID, ФИО, группа).
-*   `[ ]` Начало процесса сдачи ДЗ (`/submit`): **прием как документа (файла), так и текстового сообщения со ссылкой (URL)**, запрос предмета и номера ДЗ.
+    *   Создана директория [`database/`](mdc:database).
+    *   Создан файл [`database/models.py`](mdc:database/models.py) с моделями `User` (`id`, `username`, `full_name`, `registered_at`) и `Subject` (`id`, `name`) через SQLAlchemy. Файл БД: [`database/bot_data.db`](mdc:database/bot_data.db).
+    *   Создан скрипт инициализации [`database/db_init.py`](mdc:database/db_init.py).
+    *   Создан файл [`database/crud.py`](mdc:database/crud.py) с функциями `get_user` и `create_user`.
+    *   Добавлен `sqlalchemy` в [`requirements.txt`](mdc:requirements.txt), зависимости установлены.
+*   `[x]` Команда `/start` и `/register`: сбор и сохранение данных студента (ID, ФИО, группа).
+    *   Создана директория [`handlers/`](mdc:handlers).
+    *   Создан файл [`handlers/student_handlers.py`](mdc:handlers/student_handlers.py) с `ConversationHandler` (`registration_handler`).
+    *   При `/start` происходит проверка, зарегистрирован ли пользователь (`get_user`).
+    *   Если нет, запрашивается контакт через кнопку (`KeyboardButton(request_contact=True)`).
+    *   При получении контакта, извлекаются `user_id`, `username` (из `update.message.from_user`), `first_name`, `last_name` (из `update.message.contact`).
+    *   Пользователь сохраняется в БД через `create_user(user_id, full_name, username)`.
+    *   **Информация о группе на этапе регистрации не собирается.**
+    *   **Что нужно сделать в [`main.py`](mdc:main.py):**
+        *   Импортировать `registration_handler` из `handlers.student_handlers`.
+        *   Добавить `registration_handler` в `dispatcher`.
+*   `[ ]` Начало процесса сдачи ДЗ (`/submit`): **прием как документа (файла), так и текстового сообщения со ссылкой (URL)**, запрос предмета и номера ДЗ. *(На этом этапе можно будет запрашивать группу, если необходимо для предмета)*.
 *   `[ ]` Валидация ссылки (если прислана ссылка).
 *   `[ ]` Сохранение базовой информации о сдаче в БД (Submission: user_id, subject, hw_number, **submission_type ('file' или 'link'), data (ссылка или ID файла/путь к временному файлу)**, status='received').
 
