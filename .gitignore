@@ -6,3 +6,16 @@ client_secret.json
 # Временные папки и файлы
 temp/
 __pycache__/
+
+# Виртуальное окружение
+/venv/
+
+# Файлы конфигурации среды
+.python-version
+pyenv.cfg
+.DS_Store
+
+.idea/
+
+
+bot_data.db
